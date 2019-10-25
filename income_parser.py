@@ -4,7 +4,7 @@ API = 'https://declarator.org/api/v1/search/sections'
 
 # Usage example
 # IncomeParser.request_income(region=64) returns list of
-# {income:xxx, person: {id:xxx, name:xxx}}
+# {income:xxx, year:xxx, person: {id:xxx, name:xxx}}
 class IncomeParser:
     @staticmethod
     def simplify_section(section):
