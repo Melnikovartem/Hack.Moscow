@@ -2,6 +2,9 @@ import requests
 
 API = 'https://declarator.org/api/v1/search/sections'
 
+# Usage example
+# IncomeParser.request_income(region=64) returns list of
+# {income:xxx, person: {id:xxx, name:xxx}}
 class IncomeParser:
     @staticmethod
     def simplify_section(section):
@@ -17,14 +20,16 @@ class IncomeParser:
             }
         }
     @staticmethod
-    def request_income(**params):
+    def request_income(pages = None, **params):
         res = requests.get(API, params).json()
         sections = []
         i = 1
         while res['next'] is not None:
             print('Getting page {}'.format(i))
             sections += list(map(IncomeParser.simplify_section, res['results']))
-            res = requests.get(res['next']).json()
             i += 1
+            if pages is not None and i > pages:
+                break
+            res = requests.get(res['next']).json()
         return sections
         
