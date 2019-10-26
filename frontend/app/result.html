@@ -8,10 +8,6 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js">
-
-    </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.0/dist/Chart.min.js"></script>
@@ -52,41 +48,13 @@
 
             <h2 style="text-decoration: underline">Result for region:</h2><br>
             <div class="filters">
-                <div class="btn-group" role="group" aria-label="">
+                <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                     <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
                     <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
 
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
-                        <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                    </form>
-
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
-                        <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                    </form>
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
-                        <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                    </form>
-
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
-                        <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                    </form>
-
                 </div>
-                <p>
-                    <label for="amount">Choose gap:</label>
-                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                </p>
-
-                <div id="slider-range" style="height:10px; width: 40%"></div>
-
-
             </div><br><br>
-
             <div class="row">
                 <div class="col-md-6">
                     <h4 style="text-align: center">Avarege salary</h4>
@@ -119,92 +87,21 @@
 
     </script>
     <script type="text/javascript">
-        var mode = 'wh'
+        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001,
+            2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+        ]))
 
-        window.mode = mode
+        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002,
+            2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+        ]))
 
+        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002,
+            2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+        ]))
 
-        window.from = 1990
-        window.to = 2019
-
-
-        savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-
-        $(function() {
-            var a = 1990
-            b = 2019
-            window.from = 1990
-            window.to = 2019
-
-            $("#slider-range").slider({
-                orientation: "horizontal",
-                range: true,
-                values: [0, 100],
-                slide: function(event, ui) {
-                    $("#amount").val(Math.round(a + (b - a) * (ui.values[0] / 100)) + " год" + "-" + Math.round(a + (b - a) * (ui.values[1] / 100)) + " год");
-                    var from = (parseInt($("#amount").val()[0] + $("#amount").val()[1] + $("#amount").val()[2] + $("#amount").val()[3]))
-                        to = (parseInt($("#amount").val()[9] + $("#amount").val()[10] + $("#amount").val()[11] + $("#amount").val()[12]))
-
-                    window.to = to
-                    window.from = from
-
-
-                    if (window.mode == 'wh') {
-
-                        savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-                        flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-                        cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-                        salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-                    } else if (window.mode == "mw") {
-                        savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                            null)
-                        flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                        cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                        salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                            null)
-                    } else if (window.mode == 'parts') {
-
-
-                        savings('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        flat('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        cars('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        salary('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-
-
-                    }
-
-                }
-
-            });
-
-
-
-            $("#amount").val(a + " год" + "-" + b + " год");
-
-        });
+        salary('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001,
+        2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+        ]))
     </script>
 
 </body>
