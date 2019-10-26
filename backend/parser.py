@@ -1,16 +1,6 @@
 def make_tree_parent():
-    import numpy as np
-    import pandas as pd
-    offices = pd.read_csv('offices.csv', sep=';').set_index('id')
-    tree, parent = {}, {}
-    for row in offices['parent_id'].items():
-        if not np.isnan(row[1]):
-            a, b = int(row[0]), int(row[1])
-            if b not in tree:
-                tree[b] = []
-            tree[b].append(a)
-            parent[a] = b
-    return tree, parent
+    import pickle
+    return pickle.load(open('tree_parent.dump', 'rb'))
 
 
 class office_data:
