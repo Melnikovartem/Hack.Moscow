@@ -15,7 +15,7 @@ def result():
     print(request.args.get('family', default=0, type=int))
     family = request.args.get('family', default=0, type=int)
 
-    office = office_data(office_id, family)
+    office = office_data(office_id)
     avarage_salary = office.true_avg("incomes")  # просто средняя зарплата
     # Пример: [975657.0, 1063445.0, 1215654.67, 1397083.65, 1769658.0, 2213239.15, 3031778.9, 2769537.14, 1567386.81, 1478636.39, 1445398.08]
     print(office.gender_avg("incomes"))# по полу средняя зарплата
