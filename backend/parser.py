@@ -68,6 +68,16 @@ class office_data:
         self.data = data_struct # данные всех деклараций по годам
         self.family = 0 # учитывать ли семью
 
+    def get_min(self, typ):
+        return(min(self.get_arr(typ)))
+    
+    def get_max(self, typ):
+        return(max(self.get_arr(typ)))
+    
+    def get_median(self, typ):
+        arr = sorted(self.get_arr(typ))
+        return(arr[len(arr)//2])
+        
     def get_arr(self, typ):
         if typ == 'incomes':
             return self.incomes()
