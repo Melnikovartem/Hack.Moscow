@@ -1,4 +1,7 @@
 from sklearn.ensemble import IsolationForest
+import pandas as pd
+API = 'https://declarator.org/api/v1/search/sections'
+
 import requests
 def declarator_generator(response):
     for res in response.json()['results']:
@@ -31,7 +34,7 @@ def recursive_office_data(office, tree, with_relatives = False):
     for res in single_office_data(office, with_relatives):
         yield res
     for child in tree.get(office, []):
-        for res in recursive_office_data(child, with_relatives):
+        for res in recursive_office_data(child, tree, with_relatives):
             yield res
 def outlier_k(incomes):
     data = pd.DataFrame(incomes).set_index('id')

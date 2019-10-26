@@ -82,7 +82,7 @@ class office_data:
             if curr_amount != 0:
                 res[i] = curr_sum / curr_amount
         return res
-    
+
     def gender_avg(self, typ):
         years = self.data.keys()
         males = [None] * len(years)
@@ -110,9 +110,9 @@ class office_data:
                 males[i] = male_sum / male_amount
             if female_amount != 0:
                 females[i] = female_sum / female_amount
-        
+
         return males, females
-        
+
     def party_avg(self, typ):
         parties = set()
         years = self.data.keys()
@@ -144,12 +144,14 @@ class office_data:
                 if amounts[party] != 0:
                     res[party][i] = sums[party] / amounts[party]
         return parties, list(res.values())
-    
+
     def outlier_k(self):
         tree, parent = make_tree_parent()
         return outlier_k(list(
-            recursive_office_data(root_office(office, 1, parent), tree)
+            recursive_office_data(root_office(self.office_id, 1, parent), tree)
         ))
     #self.data - список по годам деклараций людей
 a = office_data(12)
+a.family=1
 print(a.party_avg("incomes"))
+print(a.outlier_k())
