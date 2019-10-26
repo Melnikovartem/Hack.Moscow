@@ -1,6 +1,7 @@
 import pickle
 from outlier_detection import *
 import urllib, requests, json
+from collections import defaultdict
 
 def savings_format(saving_str):
     return float(saving_str[:saving_str.find('руб.')-1].replace(' ', '').replace(',', '.'))
@@ -115,6 +116,19 @@ class office_data:
                             curr += inc
                 res.append(curr)
         return res
+        
+    def most_common_vehicle(self):
+        brands = defaultdict(int)
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                for pep in declaration['vehicles']:
+                    if pep != None:
+                        if pep['brand'] != None:
+                            brand = pep['brand']['name']
+                            if brand != None:
+                                brands[pep['brand']['name']] += 1
+        return sorted(list(brands.items()), key=(lambda x: -1*x[1]))[0][0]
         
         
     def true_avg(self, typ):
