@@ -1,0 +1,198 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<section class="region-result">
+    <div class="container">
+
+        <h2 style="text-decoration: underline">Result for region:</h2><br>
+        <div class="filters">
+            <div class="btn-group" role="group" aria-label="">
+                <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
+                <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
+                <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
+
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
+                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
+                </form>
+
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
+                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
+                </form>
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
+                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
+                </form>
+
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
+                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
+                </form>
+
+            </div>
+            <p>
+                <label for="amount">Choose gap:</label>
+                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+
+            <div id="slider-range" style="height:10px; width: 40%"></div>
+
+
+        </div><br><br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4 style="text-align: center">Avarege salary</h4>
+                <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Savings</h4>
+                <canvas id="savings" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Cars</h4>
+                <canvas id="cars" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Flat square</h4>
+                <canvas id="square" width="400px" height="300px"></canvas><br>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</section>
+<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}">
+
+</script>
+<script type="text/javascript">
+    var mode = 'wh'
+
+    window.mode = mode
+
+
+    window.from = 1990
+    window.to = 2019
+
+
+    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+
+    $(function() {
+        var a = 1990
+        b = 2019
+        window.from = 1990
+        window.to = 2019
+
+        $("#slider-range").slider({
+            orientation: "horizontal",
+            range: true,
+            values: [0, 100],
+            slide: function(event, ui) {
+                $("#amount").val(Math.round(a + (b - a) * (ui.values[0] / 100)) + " год" + "-" + Math.round(a + (b - a) * (ui.values[1] / 100)) + " год");
+                var from = (parseInt($("#amount").val()[0] + $("#amount").val()[1] + $("#amount").val()[2] + $("#amount").val()[3]))
+                    to = (parseInt($("#amount").val()[9] + $("#amount").val()[10] + $("#amount").val()[11] + $("#amount").val()[12]))
+
+                window.to = to
+                window.from = from
+
+
+                if (window.mode == 'wh') {
+
+                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+                    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+                } else if (window.mode == "mw") {
+                    savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
+                        null)
+                    flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
+                    cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
+                    salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
+                        null)
+                } else if (window.mode == 'part') {
+
+
+                    savings('part', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    flat('part', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    cars('part', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    salary('part', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+
+
+                }
+
+            }
+
+        });
+
+
+
+        $("#amount").val(a + " год" + "-" + b + " год");
+
+    });
+
+
+    $("#whithout").click(function() {
+        window.mode = 'wh'
+        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+        salary('wh', {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    })
+    $("#genders").click(function() {
+        window.mode = 'mw'
+        savings('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
+        flat('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],window.from, window.to, null)
+        cars('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
+        salary('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
+
+    })
+
+    $("#parts").click(function() {
+        window.mode = 'part'
+        savings('part', [
+            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+        flat('part', [
+            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+        cars('part', [
+            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+        salary('part', [
+            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+    })
+
+
+</script>
+{% endblock %}
