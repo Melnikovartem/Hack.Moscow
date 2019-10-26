@@ -1,0 +1,84 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<section id="region-find" class="main-content-section">
+	<div class="main-content-section__search">
+		<h3>Choose your region and office</h3>
+
+		<div class="main-content-section__search__box">
+			<form action="/result/" method="get">
+				<div class="form-group">
+
+					<select class="custom-select">
+						<option value="">Choose region</option>
+						<option value="1">One</option>
+						<option value="2">Two</option>
+						<option value="3">Three</option>
+					</select>
+					<select name="office_id" class="custom-select custom-office">
+						<option value="">Choose office</option>
+						<option value="1">One</option>
+						<option value="2">Two</option>
+						<option value="3">Three</option>
+					</select>
+
+					<input type="submit" id="search_index">
+					<label class="label_search_index" for="search_index">
+						<img src="{{ url_for('static', filename='img/search_icon.png') }}" alt="">
+					</label>
+
+				</div>
+			</form>
+
+
+
+		</div>
+		<p>Find out smth new</p>
+	</div>
+
+</section>
+<p id="about-project"></p>
+<br><br>
+<section class="project-description-section">
+	<div class="container">
+		<h2>About project</h2>
+		<div class="row">
+			<div class="col-md-6 project-description-section__text">
+
+				<p>
+					Наш сервис разработан для <a target="black" href="https://transparency.org.ru">Trancparency International</a>.
+					Используя данные из <a target="black" href="https://declarator.org/">declator.org</a>,
+					наш сервис строит визуализацию налоговых деклараций российских чиновников (мы используем данные из России, но их можно настроить для любого региона мира).
+					Данные визуализации выбираются пользователем из списка групп структур правительства
+					Также наш проект использует закон Бенфорда для поиска аномалий в данных.
+					Это поможет найти коррупционеров</p>
+			</div>
+			<div class="col-md-6">
+				<img src="{{ url_for('static', filename='img/gosduma.jpg') }}" width="100%" alt="">
+			</div>
+		</div>
+	</div>
+
+</section>
+<section class="team-description-section">
+	<div class="container">
+		<h2 id="about-team">About team</h2><br>
+		<div class="row">
+			<div class="col-md-6">
+				<img src="{{ url_for('static', filename='img/gosduma.jpg') }}" width="100%" alt="">
+			</div>
+			<div class="col-md-6 team-description-section__text">
+
+				<p>
+					<a target="black" href="https://vk.com/gppetr" style="text-decoration: underline">Petr Govorukhin</a> - Web, Python, DataScience developer. Develped Front-end part of this site.<br><br>
+					<a target="black" href="https://vk.com/gppetr" style="text-decoration: underline">Petr Govorukhin</a> - Web, Python, DataScience developer. Develped Front-end part of this site.<br><br>
+					<a target="black" href="https://vk.com/gppetr" style="text-decoration: underline">Petr Govorukhin</a> - Web, Python, DataScience developer. Develped Front-end part of this site.<br><br>
+					<a target="black" href="https://vk.com/gppetr" style="text-decoration: underline">Petr Govorukhin</a> - Web, Python, DataScience developer. Develped Front-end part of this site.
+				</p>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+{% endblock %}
