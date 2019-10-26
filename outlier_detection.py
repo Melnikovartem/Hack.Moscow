@@ -24,27 +24,27 @@ def root_office(office, up = 2):
         else:
             return office
     return office
-def single_office_data(office):
+def single_office_data(office, with_relatives = False):
     for res in declarator_generator(requests.get(API, {'office': office})):
         income = 0
         for inc in res['incomes']:
-            income += inc['size']
+            if with_relatives or inc['relative'] is None:
+                income += inc['size']
         square = 0
         for est in res['real_estates']:
-            if est['square'] is not None:
-                square += est['square']
+            if with_relatives or est['relative'] is None:
+                if est['square'] is not None:
+                    square += est['square']
         yield {'id' : res['main']['person']['id'], 'income': income, 'square': square}
-def recursive_office_data(office):
-    for res in single_office_data(office):
+def recursive_office_data(office, with_relatives = False):
+    for res in single_office_data(office, with_relatives):
         yield res
     for child in tree.get(office, []):
-        for res in recursive_office_data(child):
+        for res in recursive_office_data(child, with_relatives):
             yield res
 def outlier_k(incomes):
     data = pd.DataFrame(incomes).set_index('id')
     model = IsolationForest(n_estimators=200)
-    return (1 - sum(list(map(lambda x: max(x, 0),model.fit_predict(data)))) / len(data)) ** 3
-def office_id_to_outlier_k(office, to_root=False):
-    if to_root:
-        office = root_office(office)
-    return outlier_k(list(recursive_office_data(office)))
+    return (1 - sum(list(map(lambda x: max(x, 0),model.fit_predict(data)))) / len(data)) ** 2
+def office_id_to_outlier_k(office):
+    return outlier_k(list(recursive_office_data(root_office(office))))
