@@ -1,9 +1,24 @@
+def make_tree_parent():
+    import numpy as np
+    import pandas as pd
+    offices = pd.read_csv('offices.csv', sep=';').set_index('id')
+    tree, parent = {}, {}
+    for row in offices['parent_id'].items():
+        if not np.isnan(row[1]):
+            a, b = int(row[0]), int(row[1])
+            if b not in tree:
+                tree[b] = []
+            tree[b].append(a)
+            parent[a] = b
+    return tree, parent
+
+
 class office_data:
     ask = "https://declarator.org/api/v1/search/sections/?office="
     
     def find_children(self):
-        raise NotImplementedError
-    
+        tree, _ = make_tree_parent()
+        return tree[self.office_id] 
 #     def __init__(self, data):
 #         self.data = data
 
@@ -86,15 +101,7 @@ class office_data:
     def outlier_k(self):
         from sklearn.ensemble import IsolationForest
         import requests
-
-        tree, parent = {}, {}
-        for row in offices['parent_id'].items():
-            if not np.isnan(row[1]):
-                a, b = int(row[0]), int(row[1])
-                if b not in tree:
-                    tree[b] = []
-                tree[b].append(a)
-                parent[a] = b
+        tree, parent = make_tree_parent()
         def declarator_generator(response):
             for res in response.json()['results']:
                 yield res
