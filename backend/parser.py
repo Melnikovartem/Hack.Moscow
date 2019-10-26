@@ -42,7 +42,7 @@ class office_data:
     ask = "https://declarator.org/api/v1/search/sections/?office="
 
 
-    def __init__(self, office_id):
+    def __init__(self, office_id, family):
         self.office_id = office_id
         data_struct = {}
         data = {'next':self.ask+str(office_id)}
@@ -53,7 +53,6 @@ class office_data:
                 if i["main"]["year"] not in data_struct:
                     data_struct[i["main"]["year"]] = []
                 data_struct[i["main"]["year"]].append(i)
-            print(data["next"])
         #надо обойти всех child и вызвать одну из функций sort
         child_list = find_children(office_id)
         for i in child_list:
@@ -65,7 +64,7 @@ class office_data:
     
         self.type_to_field = {'incomes': 'size', 'real_estates': 'square'}
         self.data = data_struct # данные всех деклараций по годам
-        self.family = 0 # учитывать ли семью
+        self.family = family # учитывать ли семью
 
     def true_avg(self, typ):
         years = self.data.keys()
@@ -87,7 +86,7 @@ class office_data:
             if curr_amount != 0:
                 res[i] = curr_sum / curr_amount
         return res
-    
+
     def gender_avg(self, typ):
         years = self.data.keys()
         males = [None] * len(years)
@@ -121,9 +120,9 @@ class office_data:
                 males[i] = male_sum / male_amount
             if female_amount != 0:
                 females[i] = female_sum / female_amount
-        
+
         return males, females
-        
+
     def party_avg(self, typ):
         parties = set()
         years = self.data.keys()
@@ -159,7 +158,7 @@ class office_data:
                 if amounts[party] != 0:
                     res[party][i] = sums[party] / amounts[party]
         return parties, list(res.values())
-    
+
     def outlier_k(self):
         tree, parent = make_tree_parent()
         return outlier_k(list(
