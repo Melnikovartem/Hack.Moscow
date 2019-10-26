@@ -22,14 +22,12 @@ class RealEstateParser:
     @staticmethod
     def request_real_estate(pages = None, **params):
         res = requests.get(API, params).json()
-        sections = []
         i = 1
         while res['next'] is not None:
             print('Getting page {}'.format(i))
-            sections += list(map(RealEstateParser.simplify_section, res['results']))
+            for section in map(RealEstateParser.simplify_section, res['results']):
+                yield section
             i += 1
             if pages is not None and i > pages:
                 break
             res = requests.get(res['next']).json()
-        return sections
-        
