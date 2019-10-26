@@ -62,7 +62,8 @@ class office_data:
                 if j not in data_struct:
                     data_struct[j] = []
                 data_struct[j] += child_data[j]
-
+    
+        self.type_to_field = {'incomes': 'size', 'real_estates': 'square'}
         self.data = data_struct # данные всех деклараций по годам
         self.family = 0 # учитывать ли семью
 
@@ -73,12 +74,16 @@ class office_data:
             curr_sum = 0
             curr_amount = 0
             for declaration in self.data[year]:
-                for pep in declaration[typ]:
-                    inc = pep['size']
-                    if self.family or (pep['relative'] == None):
-                        if inc != None:
-                            curr_sum += inc
-                curr_amount += 1
+                if typ == 'vehicles':
+                    curr_sum += len(declaration[typ])
+                    curr_amount += 1
+                else:
+                    for pep in declaration[typ]:
+                        inc = pep[self.type_to_field[typ]]
+                        if self.family or (pep['relative'] == None):
+                            if inc != None:
+                                curr_sum += inc
+                    curr_amount += 1
             if curr_amount != 0:
                 res[i] = curr_sum / curr_amount
         return res
@@ -94,14 +99,20 @@ class office_data:
             female_amount = 0
             for declaration in self.data[year]:
                 gender = declaration['main']['person']['gender']
-                for pep in declaration[typ]:
-                    inc = pep['size']
-                    if self.family or (pep['relative'] == None):
-                        if inc != None:
-                            if gender == 'M':
-                                male_sum += inc
-                            elif gender == 'F':
-                                female_sum += inc
+                if typ == 'vehicles':
+                    if gender == 'M':
+                        male_sum += len(declaration[typ])
+                    elif gender == 'F':
+                        female_sum += len(declaration[typ])
+                else:
+                    for pep in declaration[typ]:
+                        inc = pep[self.type_to_field[typ]]
+                        if self.family or (pep['relative'] == None):
+                            if inc != None:
+                                if gender == 'M':
+                                    male_sum += inc
+                                elif gender == 'F':
+                                    female_sum += inc
                 if gender == 'M':
                     male_amount += 1
                 elif gender == 'F':
@@ -134,12 +145,16 @@ class office_data:
                     party = 'Нет Данных'
                 else:
                     party = party['name']
-                for pep in declaration[typ]:
-                    inc = pep['size']
-                    if self.family or (pep['relative'] == None):
-                        if inc != None:
-                            sums[party] += inc
-                amounts[party] += 1
+                if typ == 'vehicles':
+                    sums[party] += len(declaration[typ])
+                    amounts[party] += 1
+                else:
+                    for pep in declaration[typ]:
+                        inc = pep[self.type_to_field[typ]]
+                        if self.family or (pep['relative'] == None):
+                            if inc != None:
+                                sums[party] += inc
+                    amounts[party] += 1
             for party in parties:
                 if amounts[party] != 0:
                     res[party][i] = sums[party] / amounts[party]
@@ -151,6 +166,3 @@ class office_data:
             recursive_office_data(root_office(self.office_id, 1, parent), tree)
         ))
     #self.data - список по годам деклараций людей
-a = office_data(12)
-print(a.party_avg("incomes"))
-print(a.outlier_k())
