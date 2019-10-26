@@ -1,18 +1,45 @@
 import pickle
-import urllib, requests
+import urllib, requests, json
+
+def savings_format():
+    return float(saving_str[:saving_str.find('руб.')-1].replace(' ', '').replace(',', '.'))
 
 def make_tree_parent():
     import pickle
     return pickle.load(open('tree_parent.dump', 'rb'))
-def saving_to_int(saving_str):
-    return float(saving_str[:saving_str.find('руб.')-1].replace(' ', '')).replace(',', '.')
+
+def find_children(office_id):
+    tree, _ = make_tree_parent()
+    if office_id in tree:
+        return tree[self.office_id]
+    else:
+        return []
+
+def get_data_office(x):
+    data_struc = {}
+    data = {'next':"https://declarator.org/api/v1/search/sections/?office="+str(x)}
+
+    while data["next"]:
+        with urllib.request.urlopen(data["next"]) as url:
+            data = json.loads(url.read().decode())
+        for i in data["results"]:
+            if i["main"]["year"] not in data_struc:
+                data_struc[i["main"]["year"]] = []
+            data_struc[i["main"]["year"]].append(i)
+    #надо обойти всех child и вызвать одну их функций из пред ячейки
+    child_list = find_children(x)
+    for i in child_list:
+        child_data = get_data_office(i)
+        for j in child_data:
+            if j not in data_struc:
+                data_struc[j] = []
+            data_struc[j] += child_data[j]
+
+    return data_struc
 
 class office_data:
     ask = "https://declarator.org/api/v1/search/sections/?office="
 
-    def find_children(self):
-        tree, _ = make_tree_parent()
-        return tree[self.office_id] 
 
     def __init__(self, office_id):
         self.office_id = office_id
@@ -27,7 +54,7 @@ class office_data:
                 data_struct[i["main"]["year"]].append(i)
             print(data["next"])
         #надо обойти всех child и вызвать одну из функций sort
-        child_list = self.find_children()
+        child_list = find_children(office_id)
         for i in child_list:
             child_data = get_data_office(i)
             for j in child_data:
@@ -45,10 +72,10 @@ class office_data:
             curr_sum = 0
             curr_amount = 0
             for declaration in self.data[year]:
+                curr_amount += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
                     if inc == inc:
-                        curr_amount += 1
                         curr_sum += inc
             if curr_amount != 0:
                 res[i] = curr_sum / curr_amount
@@ -68,15 +95,17 @@ class office_data:
             female_amount = 0
             for declaration in self.data[year]:
                 gender = declaration['main']['person']['gender']
+                if gender == 'M':
+                    female_amount += 1
+                elif gender == 'F':
+                    female_amount += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
                     if inc == inc:
                         if gender == 'M':
                             male_sum += inc
-                            male_amount += 1
                         elif gender == 'F':
                             female_sum += inc
-                            female_amount += 1
             if male_amount != 0:
                 males[i] = male_sum / male_amount
             if female_amount != 0:
@@ -100,7 +129,7 @@ class office_data:
                     parties.add('Нет Данных')
                 else:
                     parties.add(party['name'])
-        
+
         res = {par : [0]*len(years) for par in parties}
         for i, year in enumerate(years):
             sums = {par : 0 for par in parties}
@@ -111,11 +140,11 @@ class office_data:
                     party = 'Нет Данных'
                 else:
                     party = party['name']
+                amounts[party] += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
                     if inc == inc:
                         sums[party] += inc
-                        amounts[party] += 1
             for party in parties:
                 if amounts[party] != 0:
                     res[party][i] = sums[party] / amounts[party]
@@ -124,7 +153,7 @@ class office_data:
                 if res[i][j] ==0:
                     res[i][j] = None
         return res
-      
+
     def outlier_k(self):
         from sklearn.ensemble import IsolationForest
         import requests
@@ -170,3 +199,5 @@ class office_data:
             recursive_office_data(root_office(office, 1))
         ))
     #self.data - список по годам деклараций людей
+a = office_data(12)
+print(a.party_avg("incomes"))
