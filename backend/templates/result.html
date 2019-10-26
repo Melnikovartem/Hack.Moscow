@@ -1,212 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "wrapper.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js">
+{% block content %}
+<section class="region-result">
+    <div class="container">
 
-    </script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.0/dist/Chart.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.min.css') }}">
-    <title>ColMind</title>
-</head>
+        <h2 style="text-decoration: underline">Result for region:</h2><br>
+        <div class="filters">
+            <div class="btn-group" role="group" aria-label="">
+                <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
+                <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
+                <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
 
-<body>
-    <header>
-        <div class="mobile-menu">
-            <img id="close-mobile-menu"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA60lEQVRIie3WMQ7CMAwF0G8GhOCcDFyAjYmtUjsAV6WFhc9SpBA1rR0HutRbosSvTiorwBJzBsmGZPPXPP3ijuST5M2J6vIEiz+RhWvyrKI9dwAMxmsAewveH+0BwCaYfgFopzaeSbb8DlXlA5WyH1farzbjbjQHL4Za8OJokLhK4JcRtHahiqqG5tyNJ8aHjr3s8WbgZjRuIFOxAyCJPFtjLl0k7jn+4bJ7uwX97c81glaJO/dXPoYGa8riGrQ4bkGL4TmoG/egVnzqBfIAcBWRoxYWkROAGkAXTJteIK7em5WHczxvl/hVvAGIqbUSeCK5ugAAAABJRU5ErkJggg==">
-            <ul>
-                <li><a href="#region-find">Check region</a></li>
-                <li><a href="#about-project">About project</a></li>
-                <li><a href="#about-team">About team</a></li>
-                <li><a href="#about-team">Search</a></li>
-            </ul>
-        </div>
-        <img height="30px" id="open-mobile-menu" alt="svgImg"
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIKdmlld0JveD0iMCAwIDE3MiAxNzIiCnN0eWxlPSIgZmlsbDojMDAwMDAwOyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJub256ZXJvIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgZm9udC1mYW1pbHk9Im5vbmUiIGZvbnQtd2VpZ2h0PSJub25lIiBmb250LXNpemU9Im5vbmUiIHRleHQtYW5jaG9yPSJub25lIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTAsMTcydi0xNzJoMTcydjE3MnoiIGZpbGw9Im5vbmUiPjwvcGF0aD48ZyBmaWxsPSIjZmZmZmZmIj48cGF0aCBkPSJNMCwyNS44djE3LjJoMTcydi0xNy4yek0wLDc3LjR2MTcuMmgxNzJ2LTE3LjJ6TTAsMTI5djE3LjJoMTcydi0xNy4yeiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+">
-        <nav>
-            <ul>
-                <li><a href="#region-find">Check region</a></li>
-                <li><a href="#about-project">About project</a></li>
-            </ul>
-            <h1><a href="/">Colmind.Project</a></h1>
-            <ul>
-                <li><a href="#about-team">About team</a></li>
-                <li><a href="">Search</a></li>
-            </ul>
-        </nav>
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
+                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
+                </form>
 
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
+                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
+                </form>
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
+                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
+                </form>
 
-    </header>
-    <section class="region-result">
-        <div class="container">
+                <form class="" style="padding-left: 1vw" action="" method="get">
+                    <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
+                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
+                </form>
 
-            <h2 style="text-decoration: underline">Result for region:</h2><br>
-            <div class="filters">
-                <div class="btn-group" role="group" aria-label="">
-                    <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
-                    <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
-                    <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
-
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
-                        <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                    </form>
-
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
-                        <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                    </form>
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
-                        <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                    </form>
-
-                    <form class="" style="padding-left: 1vw" action="" method="get">
-                        <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
-                        <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                    </form>
-
-                </div>
-                <p>
-                    <label for="amount">Choose gap:</label>
-                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                </p>
-
-                <div id="slider-range" style="height:10px; width: 40%"></div>
-
-
-            </div><br><br>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <h4 style="text-align: center">Avarege salary</h4>
-                    <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
-                </div>
-                <div class="col-md-6">
-                    <h4 style="text-align: center">Savings</h4>
-                    <canvas id="savings" width="400px" height="300px"></canvas><br>
-                </div>
-                <div class="col-md-6">
-                    <h4 style="text-align: center">Cars</h4>
-                    <canvas id="cars" width="400px" height="300px"></canvas><br>
-                </div>
-                <div class="col-md-6">
-                    <h4 style="text-align: center">Flat square</h4>
-                    <canvas id="square" width="400px" height="300px"></canvas><br>
-                </div>
             </div>
+            <p>
+                <label for="amount">Choose gap:</label>
+                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
 
+            <div id="slider-range" style="height:10px; width: 40%"></div>
+
+
+        </div><br><br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4 style="text-align: center">Avarege salary</h4>
+                <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Savings</h4>
+                <canvas id="savings" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Cars</h4>
+                <canvas id="cars" width="400px" height="300px"></canvas><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Flat square</h4>
+                <canvas id="square" width="400px" height="300px"></canvas><br>
+            </div>
         </div>
 
+    </div>
 
 
-    </section>
 
-    <footer>
+</section>
+<script type="text/javascript">
+    var mode = 'wh'
 
-    </footer>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}">
-
-    </script>
-    <script type="text/javascript">
-        var mode = 'wh'
-
-        window.mode = mode
+    window.mode = mode
 
 
+    window.from = 1990
+    window.to = 2019
+
+
+    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+    salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+
+    $(function() {
+        var a = 1990
+        b = 2019
         window.from = 1990
         window.to = 2019
 
+        $("#slider-range").slider({
+            orientation: "horizontal",
+            range: true,
+            values: [0, 100],
+            slide: function(event, ui) {
+                $("#amount").val(Math.round(a + (b - a) * (ui.values[0] / 100)) + " год" + "-" + Math.round(a + (b - a) * (ui.values[1] / 100)) + " год");
+                var from = (parseInt($("#amount").val()[0] + $("#amount").val()[1] + $("#amount").val()[2] + $("#amount").val()[3]))
+                    to = (parseInt($("#amount").val()[9] + $("#amount").val()[10] + $("#amount").val()[11] + $("#amount").val()[12]))
 
-        savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-        salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-
-        $(function() {
-            var a = 1990
-            b = 2019
-            window.from = 1990
-            window.to = 2019
-
-            $("#slider-range").slider({
-                orientation: "horizontal",
-                range: true,
-                values: [0, 100],
-                slide: function(event, ui) {
-                    $("#amount").val(Math.round(a + (b - a) * (ui.values[0] / 100)) + " год" + "-" + Math.round(a + (b - a) * (ui.values[1] / 100)) + " год");
-                    var from = (parseInt($("#amount").val()[0] + $("#amount").val()[1] + $("#amount").val()[2] + $("#amount").val()[3]))
-                        to = (parseInt($("#amount").val()[9] + $("#amount").val()[10] + $("#amount").val()[11] + $("#amount").val()[12]))
-
-                    window.to = to
-                    window.from = from
+                window.to = to
+                window.from = from
 
 
-                    if (window.mode == 'wh') {
+                if (window.mode == 'wh') {
 
-                        savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
 
-                        flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
 
-                        cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
 
-                        salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    salary(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
 
-                    } else if (window.mode == "mw") {
-                        savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                            null)
-                        flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                        cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                        salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                            null)
-                    } else if (window.mode == 'parts') {
-
-
-                        savings('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        flat('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        cars('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                        salary('parts', [
-                            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                } else if (window.mode == "mw") {
+                    savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
+                        null)
+                    flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
+                    cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
+                    salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
+                        null)
+                } else if (window.mode == 'parts') {
 
 
-                    }
+                    savings('parts', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    flat('parts', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    cars('parts', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    salary('parts', [
+                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
+                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
+                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+
 
                 }
 
-            });
-
-
-
-            $("#amount").val(a + " год" + "-" + b + " год");
+            }
 
         });
-    </script>
 
-</body>
 
-</html>
+
+        $("#amount").val(a + " год" + "-" + b + " год");
+
+    });
+</script>
+{% endblock %}
