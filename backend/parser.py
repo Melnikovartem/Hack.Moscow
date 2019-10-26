@@ -284,4 +284,6 @@ class office_data:
         return outlier_k(list(
             recursive_office_data(root_office(self.office_id, 1, parent), tree)
         ))
+    def parent(self):	
+        return make_tree_parent()[1].get(self.office_id)
     #self.data - список по годам деклараций людей
