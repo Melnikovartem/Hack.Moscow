@@ -148,8 +148,9 @@ class office_data:
     def outlier_k(self):
         tree, parent = make_tree_parent()
         return outlier_k(list(
-            recursive_office_data(root_office(office, 1, parent), tree)
+            recursive_office_data(root_office(self.office_id, 1, parent), tree)
         ))
     #self.data - список по годам деклараций людей
 a = office_data(12)
 print(a.party_avg("incomes"))
+print(a.outlier_k())
