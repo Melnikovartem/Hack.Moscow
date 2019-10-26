@@ -1,3 +1,6 @@
+import pickle
+import urllib, requests
+
 def make_tree_parent():
     import pickle
     return pickle.load(open('tree_parent.dump', 'rb'))
