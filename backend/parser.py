@@ -4,7 +4,8 @@ import urllib, requests
 def make_tree_parent():
     import pickle
     return pickle.load(open('tree_parent.dump', 'rb'))
-
+def saving_to_int(saving_str):
+    return float(saving_str[:saving_str.find('руб.')-1].replace(' ', '')).replace(',', '.')
 
 class office_data:
     ask = "https://declarator.org/api/v1/search/sections/?office="
