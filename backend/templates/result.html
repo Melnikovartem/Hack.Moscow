@@ -10,7 +10,7 @@
                 <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                 <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
                 <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
-
+                {% if family == 0 %}
                 <form class="" style="padding-left: 1vw" action="" method="get">
                     <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
                     <input id="family_1" type="submit" style="display: none" name="family" value="1">
@@ -20,6 +20,7 @@
                     <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
                     <input id="family_0" type="submit" style="display: none" name="family" value="0">
                 </form>
+                {% else %}
                 <form class="" style="padding-left: 1vw" action="" method="get">
                     <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
                     <input id="family_1" type="submit" style="display: none" name="family" value="1">
@@ -29,6 +30,7 @@
                     <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
                     <input id="family_0" type="submit" style="display: none" name="family" value="0">
                 </form>
+                {% endif %}
 
             </div>
             <p>
@@ -78,13 +80,13 @@
     window.to = 2019
 
 
-    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    salary(window.mode, {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
 
 
     $(function() {
@@ -108,40 +110,29 @@
 
                 if (window.mode == 'wh') {
 
-                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
 
-                    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    salary(window.mode, {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
 
                 } else if (window.mode == "mw") {
-                    savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                        null)
-                    flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                    cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                    salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                        null)
+                    savings('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
+                    flat('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
+                    cars('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
+                    salary('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
                 } else if (window.mode == 'part') {
+                    var part_names = {{part_names | safe}}
+                    part_salaries = {{part_salaries | safe}}
 
 
-                    savings('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    flat('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    cars('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    salary('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+
+                    savings('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+                    flat('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+                    cars('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+                    salary('parts', part_salaries, {{years}}, null, null, from, to, part_names)
 
 
                 }
@@ -159,38 +150,34 @@
 
     $("#whithout").click(function() {
         window.mode = 'wh'
-        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        salary('wh', {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+        salary('wh', {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
     })
     $("#genders").click(function() {
-        window.mode = 'mw'
-        savings('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
-        flat('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],window.from, window.to, null)
-        cars('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
-        salary('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
+        mode = 'mw'
+        from = window.from
+        to = window.to
 
+        window.mode = mode
+        savings(mode, null, {{years | safe}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
+        flat(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
+        cars(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
+        salary(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
     })
 
     $("#parts").click(function() {
+        var part_names = {{part_names | safe}}
+        part_salaries = {{part_salaries | safe}}
+
+
         window.mode = 'part'
-        savings('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        flat('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        cars('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        salary('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+        savings('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+        flat('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+        cars('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+
+        salary('parts', part_salaries, {{years}}, null, null, from, to, part_names)
     })
 
 
