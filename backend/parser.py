@@ -65,3 +65,4 @@ class office_data:
     def medium_sort(self):
         return self.data
     #self.data - список по годам деклараций людей
+#made a kistake in git commit -m FFF
