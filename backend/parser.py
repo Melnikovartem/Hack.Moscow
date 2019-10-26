@@ -67,27 +67,25 @@ class office_data:
 
     def true_avg(self, typ):
         years = self.data.keys()
-        res = [0]  * len(years)
+        res = [None]  * len(years)
         for i, year in enumerate(years):
             curr_sum = 0
             curr_amount = 0
             for declaration in self.data[year]:
-                curr_amount += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
-                    if inc == inc:
-                        curr_sum += inc
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr_sum += inc
+                curr_amount += 1
             if curr_amount != 0:
                 res[i] = curr_sum / curr_amount
-        for j in range(len(res)):
-            if res[j] ==0:
-                res[j] = None
         return res
-
+    
     def gender_avg(self, typ):
         years = self.data.keys()
-        males = [0] * len(years)
-        females = [0] * len(years)
+        males = [None] * len(years)
+        females = [None] * len(years)
         for i, year in enumerate(years):
             male_sum = 0
             female_sum = 0
@@ -95,30 +93,25 @@ class office_data:
             female_amount = 0
             for declaration in self.data[year]:
                 gender = declaration['main']['person']['gender']
-                if gender == 'M':
-                    female_amount += 1
-                elif gender == 'F':
-                    female_amount += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
-                    if inc == inc:
-                        if gender == 'M':
-                            male_sum += inc
-                        elif gender == 'F':
-                            female_sum += inc
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            if gender == 'M':
+                                male_sum += inc
+                            elif gender == 'F':
+                                female_sum += inc
+                if gender == 'M':
+                    male_amount += 1
+                elif gender == 'F':
+                    female_amount += 1
             if male_amount != 0:
                 males[i] = male_sum / male_amount
             if female_amount != 0:
                 females[i] = female_sum / female_amount
-
-        for j in range(len(males)):
-            if males[j] ==0:
-                males[j] = None
-        for j in range(len(females)):
-            if females[j] ==0:
-                females[j] = None
+        
         return males, females
-
+        
     def party_avg(self, typ):
         parties = set()
         years = self.data.keys()
@@ -129,8 +122,8 @@ class office_data:
                     parties.add('Нет Данных')
                 else:
                     parties.add(party['name'])
-
-        res = {par : [0]*len(years) for par in parties}
+        parties = list(parties)
+        res = {par : [None] * len(years) for par in parties}
         for i, year in enumerate(years):
             sums = {par : 0 for par in parties}
             amounts = {par : 0 for par in parties}
@@ -140,20 +133,17 @@ class office_data:
                     party = 'Нет Данных'
                 else:
                     party = party['name']
-                amounts[party] += 1
                 for pep in declaration[typ]:
                     inc = pep['size']
-                    if inc == inc:
-                        sums[party] += inc
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            sums[party] += inc
+                amounts[party] += 1
             for party in parties:
                 if amounts[party] != 0:
                     res[party][i] = sums[party] / amounts[party]
-        for i in res:
-            for j in range(len(res[i])):
-                if res[i][j] ==0:
-                    res[i][j] = None
-        return res
-
+        return parties, list(res.values())
+    
     def outlier_k(self):
         from sklearn.ensemble import IsolationForest
         import requests
