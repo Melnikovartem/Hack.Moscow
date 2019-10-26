@@ -1,5 +1,5 @@
 import requests
-
+from declarator_generator import declarator_generator
 API = 'https://declarator.org/api/v1/search/sections'
 
 # Usage example
@@ -20,14 +20,7 @@ class RealEstateParser:
             }
         }
     @staticmethod
-    def request_real_estate(pages = None, **params):
-        res = requests.get(API, params).json()
-        i = 1
-        while res['next'] is not None:
-            print('Getting page {}'.format(i))
-            for section in map(RealEstateParser.simplify_section, res['results']):
-                yield section
-            i += 1
-            if pages is not None and i > pages:
-                break
-            res = requests.get(res['next']).json()
+    def request_real_estate(**params):
+        resp = requests.get(API, params)
+        for item in declarator_generator(resp):
+            return RealEstateParser.simplify_section(item)
