@@ -67,6 +67,56 @@ class office_data:
         self.data = data_struct # данные всех деклараций по годам
         self.family = 0 # учитывать ли семью
 
+    def get_arr(self, typ):
+        if typ == 'incomes':
+            return self.incomes()
+        if typ == 'real_estates':
+            return self.real_estates()
+        return self.savings()
+        
+    def incomes(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['incomes']:
+                    inc = pep['size']
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+    
+    def real_estates(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['real_estates']:
+                    inc = pep['square']
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+    
+    def savings(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['savings']:
+                    inc = savings_format(pep)
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+        
+        
     def true_avg(self, typ):
         years = self.data.keys()
         res = [None]  * len(years)
@@ -178,6 +228,4 @@ class office_data:
         return outlier_k(list(
             recursive_office_data(root_office(self.office_id, 1, parent), tree)
         ))
-    def parent(self):
-        return make_tree_parent()[1].get(self.office_id)
     #self.data - список по годам деклараций людей
