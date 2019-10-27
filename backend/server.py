@@ -69,9 +69,13 @@ def result(office_id):
     for i in range(len(part_names)):
         part_data[part_names[i]] = [part_inc[i], part_est[i], part_sav[i], part_vec[i]]
 
-    ai_cof = [0, 0, 0]
+    ai_cof = round(office.outlier_k()*100, 4)
     be_cof = [office.get_benford("incomes"), office.get_benford("real_estates"), office.get_benford("savings")]
-    return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data, be_cof=be_cof)
+
+    max_data=[office.get_max("incomes"),office.get_max("real_estates"),office.get_max("savings")]
+    min_data=[office.get_min("incomes"),office.get_min("real_estates"),office.get_min("savings")]
+    med_data=[office.get_median("incomes"),office.get_median("real_estates"),office.get_median("savings")]
+    return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data, be_cof=be_cof, ai_cof=ai_cof, max_data=max_data, min_data=min_data, med_data=med_data)
 
 
 if __name__ == "__main__":

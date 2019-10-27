@@ -70,7 +70,51 @@
             <div class="col-md-6">
                 <h4 style="text-align: center">Cars</h4>
                 <canvas id="cars" width="400px" height="300px"></canvas><br>
-            </div><br>
+                <h3>This region in numbers:</h3>
+            </div>
+
+            <br>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="alert {% if ai_cof>80 %} alert-danger {% elif ai_cof>40 %} alert-warning {% else %} alert-info{% endif%} alert-salary" role="alert">
+              By our data analysis this data can be wrong in {{ai_cof}}%
+            </div>
+          </div>
+          <div class="col">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Estates</th>
+                        <th scope="col">Savings</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Max</th>
+                        <th>{{max_data[0]}}</th>
+                        <th>{{max_data[1]}}</th>
+                        <th>{{max_data[2]}}</th>
+                      </tr>
+                      <tr>
+                        <th scope="row">Min</th>
+                        <th>{{min_data[0]}}</th>
+                        <th>{{min_data[1]}}</th>
+                        <th>{{min_data[2]}}</th>
+                      </tr>
+                      <tr>
+                          <th scope="row">Median</th>
+                          <th>{{med_data[0]}}</th>
+                          <th>{{med_data[1]}}</th>
+                          <th>{{med_data[2]}}</th>
+                      </tr>
+                    </tbody>
+                    </table>
+
+            </div>
+          </div>
         </div>
 
     </div>
