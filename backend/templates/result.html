@@ -4,60 +4,117 @@
 <section class="region-result">
     <div class="container">
 
-        <h2 style="text-decoration: underline">Result for region:</h2><br>
+        <h2 style="text-decoration: underline">Result for {{ name }}:</h2><br>
         <div class="filters">
-            <div class="btn-group" role="group" aria-label="">
+          <div class="btn-toolbar" role="toolbar" aria-label="Конфигурация данных">
+              <div class="btn-group mr-2" role="group" aria-label="Фильтры">
                 <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                 <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
                 <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
 
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
-                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                </form>
-
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
-                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                </form>
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
-                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                </form>
-
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
-                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                </form>
 
             </div>
-            <p>
-                <label for="amount">Choose gap:</label>
-                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
+            <div class="btn-group" role="group" aria-label="">
+                <form action="">
+                    <button name="family" type="submit" value="{% if family %} 0 {% else %} 1 {% endif %}" class="btn btn-secondary {% if family %} active {% endif %}">Учитывать семью</button>
+                </form>
+            </div>
 
-            <div id="slider-range" style="height:10px; width: 40%"></div>
 
 
         </div><br><br>
+        <p>
+            <label for="amount">Choose gap:</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+
+        <div id="slider-range" style="height:10px; width: 40%"></div><br>
 
         <div class="row">
             <div class="col-md-6">
                 <h4 style="text-align: center">Avarege salary</h4>
                 <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
-            </div>
-            <div class="col-md-6">
-                <h4 style="text-align: center">Savings</h4>
-                <canvas id="savings" width="400px" height="300px"></canvas><br>
-            </div>
-            <div class="col-md-6">
-                <h4 style="text-align: center">Cars</h4>
-                <canvas id="cars" width="400px" height="300px"></canvas><br>
+                {% if be_cof[0] %}
+                <div class="alert alert-info alert-salary" role="alert">
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
+                </div><br>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Flat square</h4>
                 <canvas id="square" width="400px" height="300px"></canvas><br>
+                {% if be_cof[1] %}
+                <div class="alert alert-info alert-salary" role="alert">
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
+                </div><br>
             </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Savings</h4>
+                <canvas id="savings" width="400px" height="300px"></canvas><br>
+                {% if be_cof[2] %}
+                <div class="alert alert-info alert-salary" role="alert">
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Cars</h4>
+                <canvas id="cars" width="400px" height="300px"></canvas><br>
+                <h3>This region in numbers:</h3>
+            </div>
+
+            <br>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="alert {% if ai_cof>80 %} alert-danger {% elif ai_cof>40 %} alert-warning {% else %} alert-info{% endif%} alert-salary" role="alert">
+              By our data analysis this data can be wrong in {{ai_cof}}%
+            </div>
+          </div>
+          <div class="col">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Estates</th>
+                        <th scope="col">Savings</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Max</th>
+                        <th>{{max_data[0]}}</th>
+                        <th>{{max_data[1]}}</th>
+                        <th>{{max_data[2]}}</th>
+                      </tr>
+                      <tr>
+                        <th scope="row">Min</th>
+                        <th>{{min_data[0]}}</th>
+                        <th>{{min_data[1]}}</th>
+                        <th>{{min_data[2]}}</th>
+                      </tr>
+                      <tr>
+                          <th scope="row">Median</th>
+                          <th>{{med_data[0]}}</th>
+                          <th>{{med_data[1]}}</th>
+                          <th>{{med_data[2]}}</th>
+                      </tr>
+                    </tbody>
+                    </table>
+
+            </div>
+          </div>
         </div>
 
     </div>
@@ -69,128 +126,148 @@
 
 </script>
 <script type="text/javascript">
+
+//ебать у тебя тебя костылей
+//если я говорю ебошь абстракцию, то надо ебошить обощенные методы, а не это
     var mode = 'wh'
 
     window.mode = mode
 
 
-    window.from = 1990
-    window.to = 2019
+    a = {{years[0]}}
+    b = {{years[-1]}}
 
+    savings(window.mode, {{normal_data['normal'][2]}}, {{years}}, null, null, a, b, null)
 
-    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    flat(window.mode, {{normal_data['normal'][1]}}, {{years}}, null, null, a, b, null)
 
-    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    cars(window.mode, {{normal_data['normal'][3]}}, {{years}}, null, null, a, b, null)
 
-    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-
-    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+    salary(window.mode, {{normal_data['normal'][0]}}, {{years}}, null, null, a, b, null)
 
 
     $(function() {
-        var a = 1990
-        b = 2019
-        window.from = 1990
-        window.to = 2019
 
         $("#slider-range").slider({
             orientation: "horizontal",
             range: true,
             values: [0, 100],
             slide: function(event, ui) {
-                $("#amount").val(Math.round(a + (b - a) * (ui.values[0] / 100)) + " год" + "-" + Math.round(a + (b - a) * (ui.values[1] / 100)) + " год");
-                var from = (parseInt($("#amount").val()[0] + $("#amount").val()[1] + $("#amount").val()[2] + $("#amount").val()[3]))
-                    to = (parseInt($("#amount").val()[9] + $("#amount").val()[10] + $("#amount").val()[11] + $("#amount").val()[12]))
-
-                window.to = to
-                window.from = from
+              a = Math.round({{years[0]}} + ({{years[-1]}} - {{years[0]}}) * (ui.values[0] / 100))
+              b = Math.round({{years[0]}} + ({{years[-1]}} - {{years[0]}}) * (ui.values[1] / 100))
+              $("#amount").val(a + " год" + "-" + b + " год");
 
 
                 if (window.mode == 'wh') {
 
-                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    savings(window.mode, {{normal_data['normal'][2] | safe}}, {{years}}, null, null, a, b, null)
 
-                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    flat(window.mode, {{normal_data['normal'][1] | safe}}, {{years}}, null, null, a, b, null)
 
-                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    cars(window.mode, {{normal_data['normal'][3] | safe}}, {{years}}, null, null, a, b, null)
 
-                    salary(window.mode, {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+                    salary(window.mode, {{normal_data['normal'][0] | safe}}, {{years}}, null, null, a, b, null)
 
                 } else if (window.mode == "mw") {
-                    savings(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                        null)
-                    flat(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                    cars(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to, null)
-                    salary(window.mode, null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], window.from, window.to,
-                        null)
+                    savings('mw', null, {{years}}, {{mv_data['M'][2]|safe}}, {{mv_data['F'][2]|safe}}, a, b, null)
+                    flat   ('mw', null, {{years}}, {{mv_data['M'][1]|safe}}, {{mv_data['F'][1]|safe}}, a, b, null)
+                    cars   ('mw', null, {{years}}, {{mv_data['M'][3]|safe}}, {{mv_data['F'][3]|safe}}, a, b, null)
+                    salary ('mw', null, {{years}}, {{mv_data['M'][0]|safe}}, {{mv_data['F'][0]|safe}}, a, b, null)
                 } else if (window.mode == 'part') {
+                    part_names = []
+                    window.mode = 'part'
 
+                    {% for i in part_data %}
+                    part_names.push('{{i|safe}}')
+                    {% endfor %}
 
-                    savings('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    flat('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    cars('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
-                    salary('part', [
-                        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-                        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-                    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, from, to, ['a', 'b'])
+                    part_data = []
+                    {% for i in part_data %}
+                    part_data.push({{part_data[i][0]}})
+                    {% endfor %}
+                    salary('part', part_data, {{years}}, null, null, a, b, part_names)
 
+                    part_data = []
+                    {% for i in part_data %}
+                    part_data.push({{part_data[i][1]}})
+                    {% endfor %}
+                    flat('part', part_data, {{years}}, null, null, a, b, part_names)
+
+                    part_data = []
+                    {% for i in part_data %}
+                    part_data.push({{part_data[i][2]}})
+                    {% endfor %}
+                    savings('part', part_data, {{years}}, null, null, a, b, part_names)
+
+                    part_data = []
+                    {% for i in part_data %}
+                    part_data.push({{part_data[i][3]}})
+                    {% endfor %}
+                    cars('part', part_data, {{years}}, null, null, a, b, part_names)
 
                 }
 
             }
 
         });
-
-
-
         $("#amount").val(a + " год" + "-" + b + " год");
-
     });
 
 
     $("#whithout").click(function() {
         window.mode = 'wh'
-        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
-        salary('wh', {{avarage_salary}}, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, window.from, window.to, null)
+
+            savings(window.mode, {{normal_data['normal'][2] | safe}}, {{years}}, null, null, a, b, null)
+
+            flat(window.mode, {{normal_data['normal'][1] | safe}}, {{years}}, null, null, a, b, null)
+
+            cars(window.mode, {{normal_data['normal'][3] | safe}}, {{years}}, null, null, a, b, null)
+
+            salary(window.mode, {{normal_data['normal'][0] | safe}}, {{years}}, null, null, a, b, null)
     })
     $("#genders").click(function() {
-        window.mode = 'mw'
-        savings('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
-        flat('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],window.from, window.to, null)
-        cars('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
-        salary('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, window.from, window.to, null)
+        mode = 'mw'
 
+        window.mode = mode
+            savings('mw', null, {{years}}, {{mv_data['M'][2]|safe}}, {{mv_data['F'][2]|safe}}, a, b, null)
+            flat   ('mw', null, {{years}}, {{mv_data['M'][1]|safe}}, {{mv_data['F'][1]|safe}}, a, b, null)
+            cars   ('mw', null, {{years}}, {{mv_data['M'][3]|safe}}, {{mv_data['F'][3]|safe}}, a, b, null)
+            salary ('mw', null, {{years}}, {{mv_data['M'][0]|safe}}, {{mv_data['F'][0]|safe}}, a, b, null)
     })
 
     $("#parts").click(function() {
+        part_names = []
         window.mode = 'part'
-        savings('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        flat('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        cars('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-        salary('part', [
-            [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-            [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-        ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
+
+        {% for i in part_data %}
+        part_names.push('{{i|safe}}')
+        {% endfor %}
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][0]}})
+        {% endfor %}
+        salary('part', part_data, {{years}}, null, null, a, b, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][1]}})
+        {% endfor %}
+        flat('part', part_data, {{years}}, null, null, a, b, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][2]}})
+        {% endfor %}
+        savings('part', part_data, {{years}}, null, null, a, b, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][3]}})
+        {% endfor %}
+        console.log("HERE")
+        cars('part', part_data, {{years}}, null, null, a, b, part_names)
+
     })
 
 

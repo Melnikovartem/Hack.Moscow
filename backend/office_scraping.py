@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 
+
 def make_region_lists():
     region_to_offices = {}
     data = pd.read_csv('offices_reg.csv', sep=';').set_index('id')
@@ -12,9 +13,12 @@ def make_region_lists():
                 region_to_offices[region] = []
             region_to_offices[region].append(id)
     return region_to_offices
+
+
 def tree_unfold():
     tree, parent = pickle.load(open('tree_parent.dump', 'rb'))
     unfold = {}
+
     def recursive_children(node):
         if node not in tree:
             return []
@@ -32,5 +36,7 @@ def tree_unfold():
         unfold[root] = recursive_children(root)
     return unfold
 
+
 if __name__ == '__main__':
     print(make_region_lists().keys())
+    print(tree_unfold().keys())

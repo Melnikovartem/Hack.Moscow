@@ -12,11 +12,34 @@ $('.filters button').click(function() {
     $('.active').removeClass('active')
     $(this).addClass('active')
 })
+$('.filters button').click(function() {
+    $('.active').removeClass('active')
+    $(this).addClass('active')
+})
+$('.alert-salary').click(function () {
+    $('.hidden-graphics_salary').toggle()
+})
+
+$('.alert-square').click(function () {
+    $('.hidden-graphics_square').toggle()
+})
+
+$('.alert-savings').click(function () {
+    $('.hidden-graphics_savings').toggle()
+})
 
 //graphics
 
 //!salary
 function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
+    var ctx_salary_mw = document.getElementById('salary_mw');
+
+
+    var myChart_salary = new Chart(ctx_salary_mw, {
+        type: 'line',
+    })
+
+    myChart_salary.reset()
     var labels_o = []
     data_o = []
     data_man_o = []
@@ -29,8 +52,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
     }
 
     if (type_e == 'mw') {
-        var ctx_salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(ctx_salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -60,8 +82,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
         });
     }
     if (type_e == 'wh') {
-        var ctx_salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(ctx_salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -82,9 +103,10 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
                 }
             }
         });
+
     }
 
-    if (type_e == 'part') {
+    if (type_e == 'parts') {
         datasets_m = []
         colors = ['#B80000', '#B8A800', '#B8FF00', '#B8FF0B', '#B8FFDF', '#B8FF43', '#B8FFEB', '#B839EB', '#0039EB', '#003907', '#594C21', '#522A1A', '#542A35', '#FBF28A', '#009D83', '#BD6D61']
 
@@ -103,10 +125,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
             }
 
         }
-
-
-        var ctx_salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(ctx_salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -127,9 +146,6 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
     }
 
 }
-
-
-
 //!CARS
 function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     var labels_o = []
@@ -137,6 +153,10 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     data_man_o = []
     data_woman_o = []
 
+    var ctx_cars = document.getElementById('cars');
+    var myChart_cars = new Chart(ctx_cars, {})
+    myChart_cars.reset()
+
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
             labels_o.push(labels_e[i])
@@ -144,8 +164,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     }
 
     if (type_e == 'mw') {
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -175,8 +194,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
     if (type_e == 'wh') {
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -199,7 +217,8 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
 
-    if (type_e == 'part') {
+    if (type_e == 'parts') {
+      console.log("HERE@")
         datasets_m = []
         colors = ['#B80000', '#B8A800', '#B8FF00', '#B8FF0B', '#B8FFDF', '#B8FF43', '#B8FFEB', '#B839EB', '#0039EB', '#003907', '#594C21', '#522A1A', '#542A35', '#FBF28A', '#009D83', '#BD6D61']
 
@@ -220,8 +239,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         }
 
 
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -241,17 +259,15 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
 
     }
 }
-
-
-
-
 //!SQUARE
-
 function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     var labels_o = []
     data_o = []
     data_man_o = []
     data_woman_o = []
+    var ctx_square = document.getElementById('square');
+    var myChart_square = new Chart(ctx_square, {})
+    myChart_square.reset()
 
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
@@ -260,8 +276,8 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     }
 
     if (type_e == 'mw') {
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+
+        var myChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -291,8 +307,7 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
     if (type_e == 'wh') {
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+        var yChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -315,7 +330,7 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
 
-    if (type_e == 'part') {
+    if (type_e == 'parts') {
         datasets_m = []
         colors = ['#B80000', '#B8A800', '#B8FF00', '#B8FF0B', '#B8FFDF', '#B8FF43', '#B8FFEB', '#B839EB', '#0039EB', '#003907', '#594C21', '#522A1A', '#542A35', '#FBF28A', '#009D83', '#BD6D61']
 
@@ -336,8 +351,7 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         }
 
 
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+        var yChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -367,6 +381,11 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
     data_man_o = []
     data_woman_o = []
 
+    var ctx_savings = document.getElementById('savings');
+    var myChart_savings = new Chart(ctx_savings, {})
+    myChart_savings.reset()
+
+
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
             labels_o.push(labels_e[i])
@@ -374,8 +393,8 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
     }
 
     if (type_e == 'mw') {
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -400,13 +419,15 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
                             beginAtZero: true
                         }
                     }],
+                },
+                legend: {
+                    onClick: (e) => null
                 }
             }
         });
     }
     if (type_e == 'wh') {
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -429,7 +450,7 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
         });
     }
 
-    if (type_e == 'part') {
+    if (type_e == 'parts') {
         datasets_m = []
         colors = ['#B80000', '#B8A800', '#B8FF00', '#B8FF0B', '#B8FFDF', '#B8FF43', '#B8FFEB', '#B839EB', '#0039EB', '#003907', '#594C21', '#522A1A', '#542A35', '#FBF28A', '#009D83', '#BD6D61']
 
@@ -450,8 +471,7 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
         }
 
 
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -471,37 +491,3 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
 
     }
 }
-
-
-$("#whithout").click(function() {
-    savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    salary('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-})
-$("#genders").click(function() {
-    savings('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    flat('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    cars('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-    salary('mw', null, [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], [40, 21, 23, 32, 12, 43, 43, 43, 21, 23, 21], [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], null, null, Math.min([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]), Math.max([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]))
-
-})
-
-$("#parts").click(function() {
-    savings('part', [
-        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-    flat('part', [
-        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-    cars('part', [
-        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-    salary('part', [
-        [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40],
-        [20, 21, 60, 30, 51, 26, 41, 39, 22, 28, 40]
-    ], [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010], null, null, 2000, 2010, ['a', 'b'])
-})
