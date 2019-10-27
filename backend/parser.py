@@ -127,7 +127,7 @@ class office_data:
 
     def get_benford(self, typ):
         arr = sorted(self.get_arr(typ))
-        return list_to_benford(arr)
+        return test_fake(list_to_benford(arr))
 
     def incomes(self):
         res = []

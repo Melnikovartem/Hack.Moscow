@@ -70,8 +70,8 @@ def result(office_id):
         part_data[part_names[i]] = [part_inc[i], part_est[i], part_sav[i], part_vec[i]]
 
     ai_cof = [0, 0, 0]
-    be_cof = [0, 0, 0]
-    return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data)
+    be_cof = [office.get_benford("incomes"), office.get_benford("real_estates"), office.get_benford("savings")]
+    return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data, be_cof=be_cof)
 
 
 if __name__ == "__main__":

@@ -34,30 +34,43 @@
             <div class="col-md-6">
                 <h4 style="text-align: center">Avarege salary</h4>
                 <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
+                {% if be_cof[0] %}
                 <div class="alert alert-info alert-salary" role="alert">
-                    Everything is OK. Click to see more.
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
+                </div><br>
+            </div>
+            <div class="col-md-6">
+                <h4 style="text-align: center">Flat square</h4>
+                <canvas id="square" width="400px" height="300px"></canvas><br>
+                {% if be_cof[1] %}
+                <div class="alert alert-info alert-salary" role="alert">
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
                 </div><br>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Savings</h4>
                 <canvas id="savings" width="400px" height="300px"></canvas><br>
-                <div class="alert alert-info" role="alert">
-                    Everything is OK. Click to see more.
-                </div><br>
+                {% if be_cof[2] %}
+                <div class="alert alert-info alert-salary" role="alert">
+                    Everything is OK by Benfords law. Keep looking.
+                {% else %}
+                <div class="alert alert-warning alert-salary" role="alert">
+                    Everything is NOT OK by Benfords law. Pls check data it may be fake.
+                {% endif %}
+                </div>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Cars</h4>
                 <canvas id="cars" width="400px" height="300px"></canvas><br>
-            </div>
-            <div class="col-md-6">
-                <h4 style="text-align: center">Flat square</h4>
-                <canvas id="square" width="400px" height="300px"></canvas><br>
-                <div class="alert alert-info alert-square" role="alert">
-                    Everything is OK. Click to see more.
-                </div><br>
-
-
-            </div>
+            </div><br>
         </div>
 
     </div>
