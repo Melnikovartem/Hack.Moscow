@@ -93,6 +93,7 @@ class office_data:
                 if i["main"]["year"] not in data_struct:
                     data_struct[i["main"]["year"]] = []
                 data_struct[i["main"]["year"]].append(i)
+        self.name = data['results'][0]['main']['office']['name']
         # надо обойти всех child и вызвать одну из функций sort
         child_list = find_children(office_id)
         for i in child_list:
