@@ -6,10 +6,12 @@
 
         <h2 style="text-decoration: underline">Result for region:</h2><br>
         <div class="filters">
-            <div class="btn-group" role="group" aria-label="">
+          <div class="btn-toolbar" role="toolbar" aria-label="Конфигурация данных">
+              <div class="btn-group mr-2" role="group" aria-label="Фильтры">
                 <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                 <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
                 <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
+<<<<<<< HEAD
 
 
             </div>
@@ -17,6 +19,14 @@
                 <form action="">
                     <button name="family" type="submit" value="{% if family %} 0 {% else %} 1 {% endif %}" class="btn btn-secondary {% if family %} active {% endif %}">Учитывать семью</button>
                 </form>
+=======
+              </div>
+              <div class="btn-group mr-2" role="group" aria-label="Семья">
+                <form>
+                    <button name="family" type="submit" value="{% if family %} 0 {% else %} 1 {% endif %}" class="btn btn-secondary {% if family %} active {% endif %}">Учитывать семью</button>
+                </form>
+              </div>
+>>>>>>> a634d5628be3bed39d977e62071b873523122753
             </div>
 
             <p>
