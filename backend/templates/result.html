@@ -128,25 +128,25 @@
                     {% for i in part_data %}
                     part_data.push({{part_data[i][0]}})
                     {% endfor %}
-                    salary('parts', part_data, {{years}}, null, null, from, to, part_names)
+                    salary('part', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][1]}})
                     {% endfor %}
-                    flat('parts', part_data, {{years}}, null, null, from, to, part_names)
+                    flat('part', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][2]}})
                     {% endfor %}
-                    savings('parts', part_data, {{years}}, null, null, from, to, part_names)
+                    savings('part', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][3]}})
                     {% endfor %}
-                    cars('parts', part_data, {{years}}, null, null, from, to, part_names)
+                    cars('part', part_data, {{years}}, null, null, a, b, part_names)
 
                 }
 
