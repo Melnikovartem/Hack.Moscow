@@ -12,7 +12,21 @@ $('.filters button').click(function() {
     $('.active').removeClass('active')
     $(this).addClass('active')
 })
+$('.filters button').click(function() {
+    $('.active').removeClass('active')
+    $(this).addClass('active')
+})
+$('.alert-salary').click(function () {
+    $('.hidden-graphics_salary').toggle()
+})
 
+$('.alert-square').click(function () {
+    $('.hidden-graphics_square').toggle()
+})
+
+$('.alert-savings').click(function () {
+    $('.hidden-graphics_savings').toggle()
+})
 
 //graphics
 

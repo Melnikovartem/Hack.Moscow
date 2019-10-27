@@ -10,29 +10,15 @@
                 <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                 <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
                 <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
-                {% if family == 0 %}
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_1" class="btn btn-secondary">Учитывать семью</label>
-                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                </form>
 
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_0" class="btn btn-secondary active_2">Не учитывать семью</label>
-                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                </form>
-                {% else %}
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_1" class="btn btn-secondary active_2">Учитывать семью</label>
-                    <input id="family_1" type="submit" style="display: none" name="family" value="1">
-                </form>
-
-                <form class="" style="padding-left: 1vw" action="" method="get">
-                    <label for="family_0" class="btn btn-secondary">Не учитывать семью</label>
-                    <input id="family_0" type="submit" style="display: none" name="family" value="0">
-                </form>
-                {% endif %}
 
             </div>
+            <div class="btn-group" role="group" aria-label="">
+                <form action="">
+                    <button name="family" type="submit" value="{% if family %} 0 {% else %} 1 {% endif %}" class="btn btn-secondary {% if family %} active {% endif %}">Учитывать семью</button>
+                </form>
+            </div>
+
             <p>
                 <label for="amount">Choose gap:</label>
                 <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -47,9 +33,34 @@
             <div class="col-md-6">
                 <h4 style="text-align: center">Avarege salary</h4>
                 <canvas id="salary_mw" width="400px" height="300px"></canvas><br>
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-salary" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
+                <div class="hidden-graphics_salary">
+                    <table>
+                        <thead>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Salary</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Max</td>
+                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td>Medium</td>
+                                <td>300</td>
+                            </tr>
+                            <tr>
+                                <td>Min</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Savings</h4>
@@ -57,6 +68,30 @@
                 <div class="alert alert-info" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
+                <div class="hidden-graphics_square">
+                    <table>
+                        <thead>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Salary</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Max</td>
+                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td>Medium</td>
+                                <td>300</td>
+                            </tr>
+                            <tr>
+                                <td>Min</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Cars</h4>
@@ -65,9 +100,35 @@
             <div class="col-md-6">
                 <h4 style="text-align: center">Flat square</h4>
                 <canvas id="square" width="400px" height="300px"></canvas><br>
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-square" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
+                <div class="hidden-graphics_square">
+                    <table>
+                        <thead>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Salary</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Max</td>
+                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td>Medium</td>
+                                <td>300</td>
+                            </tr>
+                            <tr>
+                                <td>Min</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
         </div>
 
@@ -188,7 +249,5 @@
 
         salary('parts', part_salaries, {{years}}, null, null, from, to, part_names)
     })
-
-
 </script>
 {% endblock %}
