@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from parser import office_data
 import office_scraping
+from random import randint
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ data = {}
 
 @app.route('/')
 def main():
-    return render_template("index.html")
+    return render_template("index.html", office_id = randint(1, 4000))
 
 
 def null_change(x):

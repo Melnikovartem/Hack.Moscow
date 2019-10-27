@@ -6,29 +6,23 @@
 		<h3>Choose your region and office</h3>
 
 		<div class="main-content-section__search__box">
-			<form action="/result/" method="get">
 				<div class="form-group">
 
 					<select class="custom-select">
 						<option value="">Choose region</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
 					</select>
 					<select name="office_id" class="custom-select custom-office">
 						<option value="">Choose office</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
 					</select>
 
-					<input type="submit" id="search_index">
-					<label class="label_search_index" for="search_index">
-						<img src="{{ url_for('static', filename='img/search_icon.png') }}" alt="">
-					</label>
-
+						<form action="/result/{{office_id}}" method="get">
+							<input type="submit" id="search_index">
+						<label class="label_search_index" for="search_index">
+							<img src="{{ url_for('static', filename='img/search_icon.png') }}" alt="">
+						</label>
+					</form>
 				</div>
-			</form>
+
 
 
 
