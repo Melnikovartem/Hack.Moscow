@@ -181,7 +181,10 @@ class office_data:
                             brand = pep['brand']['name']
                             if brand != None:
                                 brands[pep['brand']['name']] += 1
-        return sorted(list(brands.items()), key=(lambda x: -1 * x[1]))[0][0]
+        if brands.items()!=brands.items():
+            return sorted(list(brands.items()), key=(lambda x: -1 * x[1]))[0][0]
+        else:
+            return "Нет машин"
 
     def true_avg(self, typ):
         years = self.data.keys()

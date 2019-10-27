@@ -3,38 +3,35 @@ from parser import office_data
 
 app = Flask(__name__)
 
+#костыльную оптимизацию не убирать
+data = {}
 
 @app.route('/')
 def main():
     return render_template("index.html")
 
 
-@app.route('/result/', methods=['GET'])
-def result():
-    office_id = request.args.get('office_id')
-    print(request.args.get('family', default=0, type=int))
+@app.route('/result/<office_id>', methods=['GET'])
+def result(office_id):
     family = request.args.get('family', default=0, type=int)
 
-    office = office_data(office_id, family)
+    if office_id in data:
+        office = data[office_id]
+    else:
+        office = office_data(office_id, family)
+        data[office_id] = office
     avarage_salary = office.true_avg("incomes")
     years = list(office.data)  # просто средняя зарплата
-    # Пример: [975657.0, 1063445.0, 1215654.67, 1397083.65, 1769658.0, 2213239.15, 3031778.9, 2769537.14, 1567386.81, 1478636.39, 1445398.08]
+
     m_avarage_salary = office.gender_avg("incomes")[0]
     w_avarage_salary = office.gender_avg("incomes")[1]
 
     savings = office.savings()
-    cars = office.most_common_vehicle()
+    car = office.most_common_vehicle()
 
-    print(cars)
-
-    # по полу средняя зарплата
-    # Пример: [975657.0, 1063445.0, 1215654.67, 1397083.65, 1769658.0, 2213239.15, 3031778.9, 2769537.14, 1567386.81, 1478636.39, 1445398.08], [None, None, None, None, None, None, None, None, None, None, None]
     part_names = office.party_avg("incomes")[0]
-    part_salaries = office.party_avg(
-        "incomes")[1]  # по партиям средняя зарплата
-    # Пример: (['Нет Данных', 'Единая Россия'], [[None, None, None, None, None, None, None, 2769537.14, 1567386.81, 1478636.39, 1445398.08], [975657.0, 1063445.0, 1215654.67, 1397083.65, 1769658.0, 2213239.15, 3031778.9, None, None, None, None]])
+    part_salaries = office.party_avg("incomes")[1]  # по партиям средняя зарплата
 
-    # Денис скоро добавит остальные функции к
     for s in range(len(w_avarage_salary)):
         if w_avarage_salary[s] == None:
             w_avarage_salary[s] = 'null'
