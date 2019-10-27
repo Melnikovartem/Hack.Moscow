@@ -18,6 +18,13 @@ def null_change(x):
             x[s] = 'null'
     return x
 
+def null_change_mas(x):
+    for i in range(len(x)):
+        for j in range(len(x[i])):
+            if x[i][j] == None:
+                x[i][j] = 'null'
+    return x
+
 @app.route('/result/<office_id>', methods=['GET'])
 def result(office_id):
     family = request.args.get('family', default=0, type=int)
@@ -61,10 +68,10 @@ def result(office_id):
 
 
     part_names = office.party_avg("incomes")[0]
-    part_inc = null_change(office.party_avg("incomes")[1])
-    part_est = null_change(office.party_avg("real_estates")[1])
-    part_sav = null_change(office.party_avg("savings")[1])
-    part_vec = null_change(office.party_avg("vehicles")[1])
+    part_inc = null_change_mas(office.party_avg("incomes")[1])
+    part_est = null_change_mas(office.party_avg("real_estates")[1])
+    part_sav = null_change_mas(office.party_avg("savings")[1])
+    part_vec = null_change_mas(office.party_avg("vehicles")[1])
     part_data = {}
     for i in range(len(part_names)):
         part_data[part_names[i]] = [part_inc[i], part_est[i], part_sav[i], part_vec[i]]
