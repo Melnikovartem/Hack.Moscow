@@ -20,6 +20,7 @@ def result(office_id):
     else:
         office = office_data(office_id, family)
         data[office_id] = office
+    office.family = family
     avarage_salary = office.true_avg("incomes")
     years = list(office.data)  # просто средняя зарплата
 
@@ -48,7 +49,6 @@ def result(office_id):
         for s in range(len(salary)):
             if salary[s] == None:
                 salary[s] = 'null'
-
     return render_template("result.html", family=family, avarage_salary=avarage_salary, years=years, m_avarage_salary=m_avarage_salary, w_avarage_salary=w_avarage_salary, part_names=part_names, part_salaries=part_salaries)
 
 
