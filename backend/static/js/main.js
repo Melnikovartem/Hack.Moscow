@@ -18,6 +18,14 @@ $('.filters button').click(function() {
 
 //!salary
 function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
+    var ctx_salary_mw = document.getElementById('salary_mw');
+
+
+    var myChart_salary = new Chart(ctx_salary_mw, {
+        type: 'line',
+    })
+
+    myChart_salary.reset()
     var labels_o = []
     data_o = []
     data_man_o = []
@@ -30,8 +38,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
     }
 
     if (type_e == 'mw') {
-        var ctx_salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(ctx_salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -61,8 +68,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
         });
     }
     if (type_e == 'wh') {
-        var salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -105,10 +111,7 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
             }
 
         }
-
-
-        var ctx_salary_mw = document.getElementById('salary_mw');
-        var myChart = new Chart(ctx_salary_mw, {
+        var myChart_salary = new Chart(ctx_salary_mw, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -129,9 +132,6 @@ function salary(type_e, data_e, labels_e, data_man, data_woman, from, to, parts)
     }
 
 }
-
-
-
 //!CARS
 function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     var labels_o = []
@@ -139,6 +139,10 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     data_man_o = []
     data_woman_o = []
 
+    var ctx_cars = document.getElementById('cars');
+    var myChart_cars = new Chart(ctx_cars, {})
+    myChart_cars.reset()
+
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
             labels_o.push(labels_e[i])
@@ -146,8 +150,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     }
 
     if (type_e == 'mw') {
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -177,8 +180,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
     if (type_e == 'wh') {
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -222,8 +224,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         }
 
 
-        var ctx_cars = document.getElementById('cars');
-        var myChart = new Chart(ctx_cars, {
+        var myChart_cars = new Chart(ctx_cars, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -243,17 +244,15 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
 
     }
 }
-
-
-
-
 //!SQUARE
-
 function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     var labels_o = []
     data_o = []
     data_man_o = []
     data_woman_o = []
+    var ctx_square = document.getElementById('square');
+    var myChart_square = new Chart(ctx_square, {})
+    myChart_square.reset()
 
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
@@ -262,8 +261,8 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     }
 
     if (type_e == 'mw') {
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+
+        var myChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -293,8 +292,7 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         });
     }
     if (type_e == 'wh') {
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+        var yChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -338,8 +336,7 @@ function flat(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
         }
 
 
-        var ctx_square = document.getElementById('square');
-        var myChart = new Chart(ctx_square, {
+        var yChart_square = new Chart(ctx_square, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -369,6 +366,11 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
     data_man_o = []
     data_woman_o = []
 
+    var ctx_savings = document.getElementById('savings');
+    var myChart_savings = new Chart(ctx_savings, {})
+    myChart_savings.reset()
+
+
     for (var i = 0; i <= labels_e.length; i++) {
         if (labels_e[i] <= to & labels_e[i] >= from) {
             labels_o.push(labels_e[i])
@@ -376,8 +378,8 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
     }
 
     if (type_e == 'mw') {
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -410,8 +412,7 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
         });
     }
     if (type_e == 'wh') {
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,
@@ -455,8 +456,7 @@ function savings(type_e, data_e, labels_e, data_man, data_woman, from, to, parts
         }
 
 
-        var ctx_savings = document.getElementById('savings');
-        var myChart = new Chart(ctx_savings, {
+        var myChart_savings = new Chart(ctx_savings, {
             type: 'line',
             data: {
                 labels: labels_o,

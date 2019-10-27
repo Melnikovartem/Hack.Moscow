@@ -3,6 +3,39 @@ from outlier_detection import *
 import urllib
 import requests
 import json
+from collections import defaultdict
+from math import log10, fabs
+
+
+def list_to_benford(nums):
+    """Returns list of length 10 with frequencies of ocurrance of digits on the first place.
+    Order of digits: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+    """
+    intnums = [int(i) for i in nums]
+    benford = {str(i): 0 for i in range(10)}
+    for num in intnums:
+        str_repr = str(num)
+        benford[str_repr[0]] += 1
+    benford = sorted(list(benford.items()), key=(
+        lambda x: (int(x[0]) + 10) % 11))
+    total = len(nums)
+    benford = [b[1] / total for b in benford]
+    return benford
+
+
+def create_true_benford():
+    """Returns list of length 10 with ideal Benford frequenices.
+    Zero (0) is added as 10th element with probability of 0.0"""
+    true_benford = [log10(1 + 1 / b) for b in range(1, 10)]
+    true_benford.append(0)
+    return true_benford
+
+
+def test_fake(benford, val=0.2):
+    """Tests if sum of elementwise difference between values in list 'benford' and ideal Benford frequencies is smaller than val"""
+    true_benford = create_true_benford()
+    diff = [fabs(a - b) for a, b in zip(benford, true_benford)]
+    return sum(diff) >= val
 
 
 def savings_format(saving_str):
@@ -49,7 +82,7 @@ def get_data_office(x):
 class office_data:
     ask = "https://declarator.org/api/v1/search/sections/?office="
 
-    def __init__(self, office_id):
+    def __init__(self, office_id, family):
         self.office_id = office_id
         data_struct = {}
         data = {'next': self.ask + str(office_id)}
@@ -60,7 +93,6 @@ class office_data:
                 if i["main"]["year"] not in data_struct:
                     data_struct[i["main"]["year"]] = []
                 data_struct[i["main"]["year"]].append(i)
-            print(data["next"])
         # надо обойти всех child и вызвать одну из функций sort
         child_list = find_children(office_id)
         for i in child_list:
@@ -71,8 +103,85 @@ class office_data:
                 data_struct[j] += child_data[j]
 
         self.type_to_field = {'incomes': 'size', 'real_estates': 'square'}
+
         self.data = data_struct  # данные всех деклараций по годам
-        self.family = 0  # учитывать ли семью
+        self.family = family  # учитывать ли семью
+
+    def get_min(self, typ):
+        return(min(self.get_arr(typ)))
+
+    def get_max(self, typ):
+        return(max(self.get_arr(typ)))
+
+    def get_median(self, typ):
+        arr = sorted(self.get_arr(typ))
+        return(arr[len(arr) // 2])
+
+    def get_arr(self, typ):
+        if typ == 'incomes':
+            return self.incomes()
+        if typ == 'real_estates':
+            return self.real_estates()
+        return self.savings()
+
+    def get_benford(self, typ):
+        arr = sorted(self.get_arr(typ))
+        return list_to_benford(arr)
+
+    def incomes(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['incomes']:
+                    inc = pep['size']
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+
+    def real_estates(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['real_estates']:
+                    inc = pep['square']
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+
+    def savings(self):
+        res = []
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                curr = 0
+                for pep in declaration['savings']:
+                    inc = savings_format(pep)
+                    if self.family or (pep['relative'] == None):
+                        if inc != None:
+                            curr += inc
+                res.append(curr)
+        return res
+
+    def most_common_vehicle(self):
+        brands = defaultdict(int)
+        years = self.data.keys()
+        for year in years:
+            for declaration in self.data[year]:
+                for pep in declaration['vehicles']:
+                    if pep != None:
+                        if pep['brand'] != None:
+                            brand = pep['brand']['name']
+                            if brand != None:
+                                brands[pep['brand']['name']] += 1
+        return sorted(list(brands.items()), key=(lambda x: -1 * x[1]))[0][0]
 
     def true_avg(self, typ):
         years = self.data.keys()
