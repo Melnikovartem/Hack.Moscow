@@ -10,7 +10,7 @@
               <div class="btn-group mr-2" role="group" aria-label="Фильтры">
                 <button type="button" id="whithout" class="btn btn-secondary active">Без фильтров</button>
                 <button type="button" id="genders" class="btn btn-secondary">Разделение по гендеру</button>
-                <button type="button" id="parts" class="btn btn-secondary">Разделение по партии</button>
+                <button type="button" id="parts" class="btn btn-secondary">Разделение по партиям</button>
 
 
             </div>
@@ -185,25 +185,25 @@
                     {% for i in part_data %}
                     part_data.push({{part_data[i][0]|safe}})
                     {% endfor %}
-                    salary('part', part_data, {{years}}, null, null, a, b, part_names)
+                    salary('parts', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][1]|safe}})
                     {% endfor %}
-                    flat('part', part_data, {{years}}, null, null, a, b, part_names)
+                    flat('parts', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][2]|safe}})
                     {% endfor %}
-                    savings('part', part_data, {{years}}, null, null, a, b, part_names)
+                    savings('parts', part_data, {{years}}, null, null, a, b, part_names)
 
                     part_data = []
                     {% for i in part_data %}
                     part_data.push({{part_data[i][3]|safe}})
                     {% endfor %}
-                    cars('part', part_data, {{years}}, null, null, a, b, part_names)
+                    cars('parts', part_data, {{years}}, null, null, a, b, part_names)
 
                 }
 
@@ -247,26 +247,25 @@
         {% for i in part_data %}
         part_data.push({{part_data[i][0]|safe}})
         {% endfor %}
-        salary('part', part_data, {{years}}, null, null, a, b, part_names)
+        salary('parts', part_data, {{years}}, null, null, a, b, part_names)
 
         part_data = []
         {% for i in part_data %}
         part_data.push({{part_data[i][1]|safe}})
         {% endfor %}
-        flat('part', part_data, {{years}}, null, null, a, b, part_names)
+        flat('parts', part_data, {{years}}, null, null, a, b, part_names)
 
         part_data = []
         {% for i in part_data %}
         part_data.push({{part_data[i][2]|safe}})
         {% endfor %}
-        savings('part', part_data, {{years}}, null, null, a, b, part_names)
+        savings('parts', part_data, {{years}}, null, null, a, b, part_names)
 
         part_data = []
         {% for i in part_data %}
         part_data.push({{part_data[i][3]|safe}})
         {% endfor %}
-        console.log("HERE")
-        cars('part', part_data, {{years}}, null, null, a, b, part_names)
+        cars('parts', part_data, {{years}}, null, null, a, b, part_names)
 
     })
 
