@@ -108,67 +108,86 @@ class office_data:
         self.data = data_struct  # данные всех деклараций по годам
         self.family = family  # учитывать ли семью
 
-    def get_min(self, typ):
+    def get_min(self, typ, return_id=False):
+        if return_id:
+            return(min(self.get_arr(typ, ga_w_id=True))[1])
         return(min(self.get_arr(typ)))
 
-    def get_max(self, typ):
+    def get_max(self, typ, return_id=False):
+        if return_id:
+            return(max(self.get_arr(typ, ga_w_id=True))[1])
         return(max(self.get_arr(typ)))
 
-    def get_median(self, typ):
+    def get_median(self, typ, return_id=False):
+        if return_id:
+            arr = sorted(self.get_arr(typ, ga_w_id=True))
+            return(arr[len(arr) // 2][1])
         arr = sorted(self.get_arr(typ))
         return(arr[len(arr) // 2])
 
-    def get_arr(self, typ):
+    def get_arr(self, typ, ga_w_id=False):
         if typ == 'incomes':
-            return self.incomes()
+            return self.incomes(w_id=ga_w_id)
         if typ == 'real_estates':
-            return self.real_estates()
-        return self.savings()
+            return self.real_estates(w_id=ga_w_id)
+        return self.savings(w_id=ga_w_id)
 
     def get_benford(self, typ):
         arr = sorted(self.get_arr(typ))
         return test_fake(list_to_benford(arr))
 
-    def incomes(self):
+    def incomes(self, w_id=False):
         res = []
         years = self.data.keys()
         for year in years:
             for declaration in self.data[year]:
                 curr = 0
+                name = declaration['main']['person']['id']
                 for pep in declaration['incomes']:
                     inc = pep['size']
                     if self.family or (pep['relative'] == None):
                         if inc != None:
                             curr += inc
-                res.append(curr)
+                if w_id:
+                    res.append((curr, name))
+                else:
+                    res.append(curr)
         return res
 
-    def real_estates(self):
+    def real_estates(self, w_id=False):
         res = []
         years = self.data.keys()
         for year in years:
             for declaration in self.data[year]:
                 curr = 0
+                name = declaration['main']['person']['id']
                 for pep in declaration['real_estates']:
                     inc = pep['square']
                     if self.family or (pep['relative'] == None):
                         if inc != None:
                             curr += inc
-                res.append(curr)
+                if w_id:
+                    res.append((curr, name))
+                else:
+                    res.append(curr)
         return res
 
-    def savings(self):
+    def savings(self, w_id=False):
         res = []
         years = self.data.keys()
         for year in years:
             for declaration in self.data[year]:
                 curr = 0
+                name = declaration['main']['person']['id']
                 for pep in declaration['savings']:
                     inc = savings_format(pep)
                     if self.family or (pep['relative'] == None):
                         if inc != None:
                             curr += inc
-                res.append(curr)
+                if w_id:
+                    res.append((curr, name))
+                else:
+                    res.append(curr)
         return res
 
     def most_common_vehicle(self):
