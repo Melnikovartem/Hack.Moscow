@@ -218,6 +218,7 @@ function cars(type_e, data_e, labels_e, data_man, data_woman, from, to, parts) {
     }
 
     if (type_e == 'parts') {
+      console.log("HERE@")
         datasets_m = []
         colors = ['#B80000', '#B8A800', '#B8FF00', '#B8FF0B', '#B8FFDF', '#B8FF43', '#B8FFEB', '#B839EB', '#0039EB', '#003907', '#594C21', '#522A1A', '#542A35', '#FBF28A', '#009D83', '#BD6D61']
 

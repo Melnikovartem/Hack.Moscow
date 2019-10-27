@@ -68,7 +68,9 @@ def result(office_id):
     part_data = {}
     for i in range(len(part_names)):
         part_data[part_names[i]] = [part_inc[i], part_est[i], part_sav[i], part_vec[i]]
-    #
+
+    ai_cof = [0, 0, 0]
+    be_cof = [0, 0, 0]
     return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data)
 
 
