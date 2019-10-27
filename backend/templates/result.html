@@ -37,31 +37,6 @@
                 <div class="alert alert-info alert-salary" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
-                <div class="hidden-graphics_salary">
-                    <table>
-                        <thead>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Salary</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Max</td>
-                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>Medium</td>
-                                <td>300</td>
-                            </tr>
-                            <tr>
-                                <td>Min</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Savings</h4>
@@ -69,30 +44,6 @@
                 <div class="alert alert-info" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
-                <div class="hidden-graphics_square">
-                    <table>
-                        <thead>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Salary</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Max</td>
-                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>Medium</td>
-                                <td>300</td>
-                            </tr>
-                            <tr>
-                                <td>Min</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
             <div class="col-md-6">
                 <h4 style="text-align: center">Cars</h4>
@@ -104,30 +55,6 @@
                 <div class="alert alert-info alert-square" role="alert">
                     Everything is OK. Click to see more.
                 </div><br>
-                <div class="hidden-graphics_square">
-                    <table>
-                        <thead>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Salary</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Max</td>
-                                <td><a href="https://declarator.org/person/132899/">Антов Павел Генрихович</a></td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>Medium</td>
-                                <td>300</td>
-                            </tr>
-                            <tr>
-                                <td>Min</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
 
             </div>
@@ -142,6 +69,9 @@
 
 </script>
 <script type="text/javascript">
+
+//ебать у тебя тебя костылей
+//если я говорю ебошь абстракцию, то надо ебошить обощенные методы, а не это
     var mode = 'wh'
 
     window.mode = mode
@@ -150,14 +80,13 @@
     window.from = 1990
     window.to = 2019
 
+    savings(window.mode, {{normal_data['normal'][2]}}, {{years}}, null, null, window.from, window.to, null)
 
-    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+    flat(window.mode, {{normal_data['normal'][1]}}, {{years}}, null, null, window.from, window.to, null)
 
-    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+    cars(window.mode, {{normal_data['normal'][3]}}, {{years}}, null, null, window.from, window.to, null)
 
-    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
-
-    salary(window.mode, {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
+    salary(window.mode, {{normal_data['normal'][0]}}, {{years}}, null, null, window.from, window.to, null)
 
 
     $(function() {
@@ -181,19 +110,19 @@
 
                 if (window.mode == 'wh') {
 
-                    savings(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+                    savings(window.mode, {{normal_data['normal'][2] | safe}}, {{years}}, null, null, window.from, window.to, null)
 
-                    flat(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+                    flat(window.mode, {{normal_data['normal'][1] | safe}}, {{years}}, null, null, window.from, window.to, null)
 
-                    cars(window.mode, [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
+                    cars(window.mode, {{normal_data['normal'][3] | safe}}, {{years}}, null, null, window.from, window.to, null)
 
-                    salary(window.mode, {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
+                    salary(window.mode, {{normal_data['normal'][0] | safe}}, {{years}}, null, null, window.from, window.to, null)
 
                 } else if (window.mode == "mw") {
-                    savings('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
-                    flat('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
-                    cars('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
-                    salary('mw', null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, window.from, window.to, null)
+                    savings('mw', null, {{years}}, {{mv_data['M'][2]|safe}}, {{mv_data['F'][2]|safe}}, window.from, window.to, null)
+                    flat   ('mw', null, {{years}}, {{mv_data['M'][1]|safe}}, {{mv_data['F'][1]|safe}}, window.from, window.to, null)
+                    cars   ('mw', null, {{years}}, {{mv_data['M'][3]|safe}}, {{mv_data['F'][3]|safe}}, window.from, window.to, null)
+                    salary ('mw', null, {{years}}, {{mv_data['M'][0]|safe}}, {{mv_data['F'][0]|safe}}, window.from, window.to, null)
                 } else if (window.mode == 'part') {
                     var part_names = {{part_names | safe}}
                     part_salaries = {{part_salaries | safe}}
@@ -221,10 +150,14 @@
 
     $("#whithout").click(function() {
         window.mode = 'wh'
-        savings('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
-        flat('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
-        cars('wh', [10, 20, 30, 40, 25, 32, 44, 33, 32, 32, 40], {{years}}, null, null, window.from, window.to, null)
-        salary('wh', {{avarage_salary}}, {{years}}, null, null, window.from, window.to, null)
+
+            savings(window.mode, {{normal_data['normal'][2] | safe}}, {{years}}, null, null, window.from, window.to, null)
+
+            flat(window.mode, {{normal_data['normal'][1] | safe}}, {{years}}, null, null, window.from, window.to, null)
+
+            cars(window.mode, {{normal_data['normal'][3] | safe}}, {{years}}, null, null, window.from, window.to, null)
+
+            salary(window.mode, {{normal_data['normal'][0] | safe}}, {{years}}, null, null, window.from, window.to, null)
     })
     $("#genders").click(function() {
         mode = 'mw'
@@ -232,23 +165,44 @@
         to = window.to
 
         window.mode = mode
-        savings(mode, null, {{years | safe}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
-        flat(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
-        cars(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
-        salary(mode, null, {{years}}, {{m_avarage_salary | safe}}, {{w_avarage_salary | safe}}, from, to, null)
+            savings('mw', null, {{years}}, {{mv_data['M'][2]|safe}}, {{mv_data['F'][2]|safe}}, window.from, window.to, null)
+            flat   ('mw', null, {{years}}, {{mv_data['M'][1]|safe}}, {{mv_data['F'][1]|safe}}, window.from, window.to, null)
+            cars   ('mw', null, {{years}}, {{mv_data['M'][3]|safe}}, {{mv_data['F'][3]|safe}}, window.from, window.to, null)
+            salary ('mw', null, {{years}}, {{mv_data['M'][0]|safe}}, {{mv_data['F'][0]|safe}}, window.from, window.to, null)
     })
 
     $("#parts").click(function() {
-        var part_names = {{part_names | safe}}
-        part_salaries = {{part_salaries | safe}}
-
-
+        part_names = []
         window.mode = 'part'
-        savings('parts', part_salaries, {{years}}, null, null, from, to, part_names)
-        flat('parts', part_salaries, {{years}}, null, null, from, to, part_names)
-        cars('parts', part_salaries, {{years}}, null, null, from, to, part_names)
 
-        salary('parts', part_salaries, {{years}}, null, null, from, to, part_names)
+        {% for i in part_data %}
+        part_names.push('{{i|safe}}')
+        {% endfor %}
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][0]}})
+        {% endfor %}
+        salary('parts', part_data, {{years}}, null, null, from, to, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][1]}})
+        {% endfor %}
+        flat('parts', part_data, {{years}}, null, null, from, to, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][2]}})
+        {% endfor %}
+        savings('parts', part_data, {{years}}, null, null, from, to, part_names)
+
+        part_data = []
+        {% for i in part_data %}
+        part_data.push({{part_data[i][3]}})
+        {% endfor %}
+        cars('parts', part_data, {{years}}, null, null, from, to, part_names)
+
     })
 </script>
 {% endblock %}

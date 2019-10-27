@@ -209,8 +209,6 @@ class office_data:
                         inc = pep[self.type_to_field[typ]]
                         if self.family or (pep['relative'] == None):
                             if inc != None:
-                                if str(year) == '2015':
-                                    print(inc, type(inc))
                                 curr_sum += inc
                     curr_amount += 1
             if curr_amount != 0:

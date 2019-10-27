@@ -12,6 +12,12 @@ def main():
     return render_template("index.html")
 
 
+def null_change(x):
+    for s in range(len(x)):
+        if x[s] == None:
+            x[s] = 'null'
+    return x
+
 @app.route('/result/<office_id>', methods=['GET'])
 def result(office_id):
     family = request.args.get('family', default=0, type=int)
@@ -22,37 +28,49 @@ def result(office_id):
         office = office_data(office_id, family)
         data[office_id] = office
     office.family = family
-    avarage_salary = office.true_avg("incomes")
-    years = list(office.data)  # просто средняя зарплата
+    years = list(office.data)
 
-    m_avarage_salary = office.gender_avg("incomes")[0]
-    w_avarage_salary = office.gender_avg("incomes")[1]
+
+    avg_inc = office.true_avg("incomes")
+    avg_est = office.true_avg("real_estates")
+    avg_sav = office.true_avg("savings")
+    avg_vec = office.true_avg("vehicles")
+
+    normal_data = {'normal': [avg_inc, avg_est, avg_sav, avg_vec]}
+
+
+    # просто средняя зарплата
+    # ЕСБАТЬ ВАС И ВАШИ КОСТЫЛИ ВЫ НАХУЙ НАУЧИТЕСЬ РАБОТАТЬ С АБСТРАЦИЯМИ ИЛИ ИДТИЕ ПИСАЙТ САЙТЫ НА ФРИЛАНС
+
+
+    m_avg_inc = null_change(office.gender_avg("incomes")[0])
+    w_avg_inc = null_change(office.gender_avg("incomes")[1])
+    m_avg_est = null_change(office.gender_avg("real_estates")[0])
+    w_avg_est = null_change(office.gender_avg("real_estates")[1])
+    m_avg_sav = null_change(office.gender_avg("savings")[0])
+    w_avg_sav = null_change(office.gender_avg("savings")[1])
+    m_avg_vec = null_change(office.gender_avg("vehicles")[0])
+    w_avg_vec = null_change(office.gender_avg("vehicles")[1])
+    mv_data = {"M": [m_avg_inc, m_avg_est, m_avg_sav, m_avg_vec],
+        "F": [w_avg_inc, w_avg_est, w_avg_sav, w_avg_vec]}
+    #
 
     savings = office.savings()
     car = office.most_common_vehicle()
+    #
+
 
     part_names = office.party_avg("incomes")[0]
-    part_salaries = office.party_avg("incomes")[1]  # по партиям средняя зарплата
-
-    for s in range(len(w_avarage_salary)):
-        if w_avarage_salary[s] == None:
-            w_avarage_salary[s] = 'null'
-
-    for s in range(len(m_avarage_salary)):
-        if m_avarage_salary[s] == None:
-            m_avarage_salary[s] = 'null'
-    for s in range(len(avarage_salary)):
-        if avarage_salary[s] == None:
-            avarage_salary[s] = 'null'
-
-    for salary in part_salaries:
-
-        for s in range(len(salary)):
-            if salary[s] == None:
-                salary[s] = 'null'
-    print(avarage_salary)
-    return render_template("result.html", family=family, name=office.name, avarage_salary=avarage_salary, years=years, m_avarage_salary=m_avarage_salary, w_avarage_salary=w_avarage_salary, part_names=part_names, part_salaries=part_salaries)
+    part_inc = null_change(office.party_avg("incomes")[1])
+    part_est = null_change(office.party_avg("real_estates")[1])
+    part_sav = null_change(office.party_avg("savings")[1])
+    part_vec = null_change(office.party_avg("vehicles")[1])
+    part_data = {}
+    for i in range(len(part_names)):
+        part_data[part_names[i]] = [part_inc[i], part_est[i], part_sav[i], part_vec[i]]
+    #
+    return render_template("result.html", family=family, name=office.name, years=years, normal_data=normal_data, mv_data=mv_data, part_data=part_data)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
